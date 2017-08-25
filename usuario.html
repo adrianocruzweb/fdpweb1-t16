@@ -1,0 +1,97 @@
+<html>
+    <head>
+
+    </head>
+    <body>
+		<form action="javascript:void(0)" onsubmit="app.salvar()">
+			<label>Nome</label>
+			<input type="text" value="" id="nome" placeholder="novo usuario"><br><br>			
+			<input type="submit" value="SALVAR">
+			<input type="button" value="CANCELAR" onclick="app.limparCampo()">
+		</form>
+		
+		<p id="contador"></p>
+		
+		<table border=1>
+			<tbody id="usuarios"></tbody>
+		</table>
+    </body>
+	<script>
+		var app = new function(){
+			this.usuarios = ['jão','maria','zé'];
+			
+			this.verEditar = false;
+			this.itemEditar = -1;
+			this.numero = -1;
+		
+			this.salvar = function(){
+				if(!this.verEditar){
+					var nome 	= document.getElementById('nome');
+					var usuario = nome.value;
+					
+					if(usuario){
+						this.usuarios.push(usuario);
+					}
+				}else{					
+					var nome 	= document.getElementById('nome');
+					var usuario = nome.value;
+					this.usuarios[this.itemEditar] = usuario;
+					this.verEditar = false;
+				}				
+				
+				this.listarTodos();
+				this.limparCampo();	
+				this.contador();
+			}
+			
+			this.listarTodos = function(){
+			
+				var tr = "";
+				for(i=0; i<this.usuarios.length; i++){
+					tr += '<tr>';
+					tr += '<td>';
+					tr += i;
+					tr += '</td>';
+					tr += '<td>';
+					tr += this.usuarios[i];
+					tr += '</td>';
+					tr += '<td>';
+					tr += '<input type=\'button\' value=\'Apagar\' onclick=\'app.apagar('+i+')\'>';
+					tr += '</td>';
+					tr += '<td>';
+					tr += '<input type=\'button\' value=\'Editar\' onclick=\'app.editar('+i+')\'>';
+					tr += '</td>';
+					tr += '</tr>';				
+				}
+				
+				var usuarios = document.getElementById('usuarios');
+				usuarios.innerHTML = tr;			
+			}
+			
+			this.limparCampo = function(){
+				document.getElementById('nome').value = "";
+			}
+			
+			this.apagar = function(i){
+				this.usuarios.splice(i,1);
+				this.listarTodos();
+				this.contador();
+			}
+			
+			this.editar = function(i){
+				document.getElementById('nome').value = this.usuarios[i];			
+				this.verEditar = true;
+				this.itemEditar = i;
+			}
+			
+			this.contador = function(){
+				this.numero = this.usuarios.length;
+				var novoContador = document.getElementById('contador');
+				novoContador.innerHTML = this.numero;
+			}
+		}
+		app.listarTodos();
+		
+		app.contador();
+	</script>
+</html>

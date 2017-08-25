@@ -1,0 +1,37 @@
+<html>
+    <head>
+		<script>
+			function imprimeMaior(){
+				var area = document.getElementById('areaDaMensagem');
+				var val1 = Number (document.getElementById('val1').value);
+				var val2 = Number (document.getElementById('val2').value);
+				var val3 = Number (document.getElementById('val3').value);
+				
+				var res = 0;
+				 
+				if(val1>val2 && val1>val3){
+					res = val1;
+				}else if(val2>val1 && val2>val3){
+					res = val2;
+				}else{
+					res = val3;
+				}
+				
+				area.innerHTML ="O maior valor é - <b>" + res + "</b>";
+			}
+		</script>
+    </head>
+    <body>
+		<div id="areaDaMensagem">
+				Mensagem
+		</div>
+		<br>
+		<label>N1</label>
+		<input type="text" value="" id="val1"><br><br>
+		<label>N2</label>
+		<input type="text" value="" id="val2"><br><br>
+		<label>N3</label>
+		<input type="text" value="" id="val3"><br><br>
+		<input type="button" value="VERIFICA" onclick="imprimeMaior()" >
+    </body>
+</html>
